@@ -5,7 +5,8 @@ const UserRouter = require('./api/user');
 const express = require("express");
 const bodyparser = require('body-parser');
 
-
+//env variables
+require("dotenv").config();
 
 const bodyParser = require('express').json;
 //app.use(bodyParser());
