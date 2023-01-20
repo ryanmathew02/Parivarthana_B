@@ -1,12 +1,16 @@
 require('./configs/db');
 const app = require('express')();
-const PORT = 3000;
+const PORT = process.env.PORT || 5000;
 const UserRouter = require('./api/user');
 const express = require("express");
 const bodyparser = require('body-parser');
 
 //env variables
 require("dotenv").config();
+
+//cors
+const cors = require("cors");
+app.use(cors());
 
 const bodyParser = require('express').json;
 //app.use(bodyParser());
