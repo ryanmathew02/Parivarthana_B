@@ -18,7 +18,14 @@ const bodyParser = require('express').json;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded( {extended: true} ));
 
+
+
+const passport = require("passport");
+require("./configs/passport-auth")(passport);
+const auth = require("./api/auth");
+
 app.use('/user', UserRouter);
+app.use('/auth', auth);
 
 app.listen(PORT, () => {
     console.log(`server is running at port number ${PORT}`);
