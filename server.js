@@ -4,6 +4,7 @@ const PORT = process.env.PORT || 5000;
 const UserRouter = require('./api/user');
 const express = require("express");
 const bodyparser = require('body-parser');
+const path = require('path');
 
 //env variables
 require("dotenv").config();
@@ -18,7 +19,17 @@ const bodyParser = require('express').json;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded( {extended: true} ));
 
+
+
+const passport = require("passport");
+require("./configs/passport-auth")(passport);
+const auth = require("./api/auth");
+
 app.use('/user', UserRouter);
+app.use('/auth', auth);
+app.use('/', (req, res)=>{
+    res.sendFile(path.join(__dirname+"/views/homepage.html"));
+})
 
 app.listen(PORT, () => {
     console.log(`server is running at port number ${PORT}`);
