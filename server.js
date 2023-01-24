@@ -19,12 +19,17 @@ const bodyParser = require('express').json;
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded( {extended: true} ));
 
-
-
+// for google-authentication
 const passport = require('passport');
 require("./configs/passport-auth")(passport);
 const auth = require("./api/USER/auth");
 
+//for newproducts
+const product = require('./api/PRODUCT/product');
+const upload  = require('./configs/upload');
+
+
+app.use('/product', upload.array('image[]'), product);
 app.use('/user', UserRouter);
 app.use('/auth', auth);
 app.use('/', (req, res)=>{
