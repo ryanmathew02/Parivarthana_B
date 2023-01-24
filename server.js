@@ -21,7 +21,7 @@ app.use(bodyparser.urlencoded( {extended: true} ));
 
 
 
-const passport = require("passport");
+const passport = require('passport');
 require("./configs/passport-auth")(passport);
 const auth = require("./api/auth");
 
