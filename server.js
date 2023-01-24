@@ -1,7 +1,7 @@
 require('./configs/db');
 const app = require('express')();
 const PORT = process.env.PORT || 5000;
-const UserRouter = require('./api/user');
+const UserRouter = require('./api/USER/user');
 const express = require("express");
 const bodyparser = require('body-parser');
 const path = require('path');
@@ -23,7 +23,7 @@ app.use(bodyparser.urlencoded( {extended: true} ));
 
 const passport = require('passport');
 require("./configs/passport-auth")(passport);
-const auth = require("./api/auth");
+const auth = require("./api/USER/auth");
 
 app.use('/user', UserRouter);
 app.use('/auth', auth);
