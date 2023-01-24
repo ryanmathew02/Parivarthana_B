@@ -1,14 +1,14 @@
 const e = require('express');
-const { estimatedDocumentCount } = require('../models/user');
+//const { estimatedDocumentCount } = require('../models/user');
 
 const router = require('express').Router();
 
 //mongoDB user module
-const userModule = require("./../models/user");
+const userModule = require("./../../models/user");
 
 
 //mongoDB user Verification module
-const UserVerification = require("./../models/UserVerification");
+const UserVerification = require("./../../models/UserVerification");
 
 
 // Password handler
@@ -26,7 +26,7 @@ require("dotenv").config();
 
 //path for static verified page
 const path = require("path");
-const user = require('../models/user');
+const user = require('../../models/user');
 
 
 // nodemailer transporter
@@ -170,7 +170,7 @@ router.get("/verify/:Id/:uniqueString", (req, res) => {
                                 .then(() => {
                                     UserVerification.deleteOne({Id})
                                     .then(() => {
-                                        res.sendFile(path.join(__dirname, "./../views/verified.html"));
+                                        res.sendFile(path.join(__dirname, "./../../views/verified.html"));
                                     })
                                     .catch(error => {
                                         let message = "An error occured while finalizing successful verification";
@@ -212,7 +212,7 @@ router.get("/verify/:Id/:uniqueString", (req, res) => {
 
 //verfication page route
 router.get("/verified", (req, res) => {
-    res.sendFile(path.join(__dirname, "./../views/verified.html"));
+    res.sendFile(path.join(__dirname, "./../../views/verified.html"));
 })
 
 
