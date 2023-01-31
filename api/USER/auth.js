@@ -22,7 +22,7 @@ router.get("/google/redirect",
     // profile route after successful sign in</em> 
 router.get("/home", (req, res) => {
         console.log(req);
-        res.sendFile(path.join(__dirname,'..','views','verified.html'));
+        res.sendFile(path.join(__dirname,'..','..','views','verified.html'));
     });
 
 module.exports = router;
