@@ -218,11 +218,12 @@ router.get("/verified", (req, res) => {
 
 // Signup
 router.post('/signup', (req, res) => {
-    let {name, email, password, dateOfBirth} = req.body;
-    name = name.trim();
-    email = email.trim();
-    password = password.trim();
-    dateOfBirth = dateOfBirth.trim();
+    //let {name, email, password, dateOfBirth} = req.body;
+    const name = req.body.name;
+    const email = req.body.email;
+    const password = req.body.password;
+    const dateOfBirth = req.body.dateOfBirth;
+    console.log(name,email,password,dateOfBirth);
 
     if(name == "" || email == "" || password == "" || dateOfBirth == ""){
         res.json({
