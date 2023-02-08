@@ -379,50 +379,52 @@ router.post("/signIn-google", (req, res) => {
     console.log(email);
 
     if(email == "" || name == ""){
+        console.log("CHECK12");
         res.json({
             status: "FAILED",
             message: "Empty fields!!"
         });
     } else {
-        userModule.find({email}).then(data => {
-            if(data.lenght){
-                // already have a account
+        console.log("Checking 1");
+        userModule.findOne({email}, function(err, result){
+            console.log(result);
+            if(err){
+                console.log("Checking 2");
                 res.json({
-                    status: "SUCCESS",
-                    message: 1,
+                    status: "FAILED",
+                    message: "error while find user"
                 })
-            }
-            else{
-                // dont have a account
+            } else if( result == null || !result ){
+                console.log("Checking 3");
                 const saltRounds = 10;
-                bcrypt.hash("Hello-World", saltRounds).then(hashedPassword => {
+                bcrypt.hash("Hello-world", saltRounds).then(hashedPassword => {
                     const newUser = new userModule({
                         name,
                         email,
                         password: hashedPassword,
-                        dateOfBirth: "01-01-2000",
+                        dateOfBirth: "01-01-2001",
                         verified: true
-                    });
-
-                    newUser.save().then( result => {
+                    })
+                    
+                    newUser.save().then(result => {
                         res.json({
                             status: "SUCCESS",
-                            message: 1,
+                            message: "new user registered",
                         })
                     })
-                    .catch()
-                }).catch(err => {
+                })
+                .catch(err => {
                     res.json({
                         status: "FAILED",
-                        message: "error while Registering account"
+                        message: "error while registering account"
                     })
                 })
+            } else {
+                res.json({
+                    status: "SUCCESS",
+                    message: "Already a user"
+                })
             }
-        }).catch(err => {
-            res.json({
-                status: "FAILED",
-                message: "Error while searching your main"
-            })
         })
     }
 
