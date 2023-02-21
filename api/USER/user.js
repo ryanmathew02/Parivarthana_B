@@ -92,7 +92,7 @@ const sendVerificationEmail = ({_id, email}, res) => {
                         .sendMail(mailOption)
                         .then( () => {
                             // email has been sent and verification record saved
-                            res.json({
+                            res.status(200).json({
                                 status: "Pending",
                                 message: "Verification Mail sent"
                             });
@@ -222,7 +222,7 @@ router.post('/signup', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-    const dateOfBirth = req.body.dateOfBirth;
+    const dateOfBirth = "12-01-2001";
     console.log(name,email,password,dateOfBirth);
 
     if(name == "" || email == "" || password == "" || dateOfBirth == ""){
@@ -277,6 +277,11 @@ router.post('/signup', (req, res) => {
                         // handle email Verifications
                         console.log(result);
                         sendVerificationEmail(result, res);
+                        console.log("CHECKING RETURN FROM FUNCTION");
+                        res.json({
+                            status: "SUCCESS",
+                            message: "Mail send"
+                        })
 
                     }).catch(err => {
                         res.json({
