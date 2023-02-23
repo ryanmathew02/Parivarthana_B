@@ -227,26 +227,31 @@ router.post('/signup', (req, res) => {
 
     if(name == "" || email == "" || password == "" || dateOfBirth == ""){
         res.json({
+            value: 0,
             status: "FAILED",
             message: "Empty input fields!"
         });
     } else if(!/^[a-zA-Z ]*$/.test(name)){
         res.json({
+            value: 0,
             status: "FAILED",
             message: "Invalid Name enterred"
         });
     } else if(!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)){
         res.json({
+            value: 0,
             status: "FAILED",
             message: "Invalid email enterred"
         });
     } else if (!new Date(dateOfBirth).getTime()){
         res.json({
+            value: 0,
             status: "FAILED",
             message: "Invalid date of birth enterred"
         });
     } else if (password.lenght < 8 ){
         res.json({
+            value: 0,
             status: "FAILED",
             message: "Invalid... password to small(need > 8)"
         });
@@ -255,6 +260,7 @@ router.post('/signup', (req, res) => {
         userModule.find({email}).then(result => {
             if (result.length) {
                 res.json({
+                    value: 0,
                     status: "FAILED",
                     message: "User with this mail already exist"
                 });
@@ -278,13 +284,15 @@ router.post('/signup', (req, res) => {
                         console.log(result);
                         sendVerificationEmail(result, res);
                         console.log("CHECKING RETURN FROM FUNCTION");
-                        res.json({
-                            status: "SUCCESS",
-                            message: "Mail send"
-                        })
+                        // res.json({
+                        //     value: 1,
+                        //     status: "SUCCESS",
+                        //     message: "Mail send",
+                        // })
 
                     }).catch(err => {
                         res.json({
+                            value: 0,
                             status: "FAILED",
                             message: "Error while save the user account"
                         });
@@ -292,6 +300,7 @@ router.post('/signup', (req, res) => {
 
                 }).catch(err => {
                     res.json({
+                        value: 0,
                         status: "FAILED",
                         message: "An error occured while hashing password"
                     });
@@ -301,6 +310,7 @@ router.post('/signup', (req, res) => {
         }).catch(err => {
             console.log(err);
             res.json({
+                value: 0,
                 status: "FAILED",
                 message: "An error occurred while checking for existing user!"
             });
@@ -327,24 +337,26 @@ router.post("/signin", (req, res) => {
         userModule.find({email}).then(data => {
             if(data.length) {
                 // user exist
-
+                console.log("CHECKING SIGNIN 1");
 
                 // check if user is verified
                 if(!data[0].verified){
+                    console.log("CHECKING SIGNIN 2");
                     res.json({
                         status: "FAILED",
                         message: "User has not been verified"
                     });
                 } else {
-                    
+                    console.log("CHECKING SIGNIN 3");
                         const hashedPassword = data[0].password;
                     bcrypt.compare(password, hashedPassword).then(result => {
                         if(result){
+                            console.log("CHECKING SIGNIN 4");
                             //password correct(matched)
                             res.json({
+                                value: 1,
                                 status: "Success",
                                 message: "Signin Successfull!",
-                                data: data
                             });
                         } else {
                             res.json({
