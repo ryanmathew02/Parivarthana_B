@@ -5,7 +5,7 @@ module.exports = (passport) => {
         passport.use(new GoogleStrategy({
             clientID: process.env.Client_Id,
             clientSecret: process.env.Client_Secret,
-            callbackURL: "http://localhost:5000/auth/google/redirect",
+            callbackURL: "https://parivarthana-website.onrender.com/auth/google/redirect",
             passReqToCallback : true
           },
           async (request, accessToken, refreshToken, profile, done) => {

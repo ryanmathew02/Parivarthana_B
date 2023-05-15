@@ -58,7 +58,7 @@ const sendVerificationEmail = ({_id, email}, res) => {
     console.log("Email "+email);
     
     //url to be used after hosting
-    const currentUrl = "http://localhost:5000/";
+    const currentUrl = "https://parivarthana-website.onrender.com/";
     
     const uniqueString = uuidv4() + _id;
     console.log("Unique String " + uniqueString);
@@ -353,11 +353,11 @@ router.post("/signin", (req, res) => {
                         if(result){
                             console.log("CHECKING SIGNIN 4");
                             //password correct(matched)
-                            res.json({
-                                value: 1,
-                                status: "Success",
-                                message: "Signin Successfull!",
-                            });
+                            // res.json({
+                            //     value: 1,
+                            //     status: "Success",
+                            //     message: "Signin Successfull!",
+                            // });
                         } else {
                             res.json({
                                 status: "FAILED",
