@@ -338,7 +338,7 @@ router.post("/signin", (req, res) => {
             if(data.length) {
                 // user exist
                 console.log("CHECKING SIGNIN 1");
-
+                console.log(data[0].email)
                 // check if user is verified
                 if(!data[0].verified){
                     console.log("CHECKING SIGNIN 2");
@@ -353,11 +353,12 @@ router.post("/signin", (req, res) => {
                         if(result){
                             console.log("CHECKING SIGNIN 4");
                             //password correct(matched)
-                            // res.json({
-                            //     value: 1,
-                            //     status: "Success",
-                            //     message: "Signin Successfull!",
-                            // });
+                            res.json({
+                                value: 1,
+                                status: "SUCCESS",
+                                message: "Signin Successfull!",
+                                isAdmin: data[0]?.email=="mysterysoul459@gmail.com",
+                            });
                         } else {
                             res.json({
                                 status: "FAILED",
