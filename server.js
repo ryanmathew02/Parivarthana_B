@@ -25,11 +25,11 @@ require("./configs/passport-auth")(passport);
 const auth = require("./api/USER/auth");
 
 //for newproducts
-const product = require('./api/PRODUCT/product');
+const product = require('./api/PRODUCT/newproduct');
 const upload  = require('./configs/upload');
 
 
-app.use('/product', upload.array('image[]'), product);
+app.use('/product', product);
 app.use('/user', UserRouter);
 app.use('/auth', auth);
 app.use('/', (req, res)=>{
