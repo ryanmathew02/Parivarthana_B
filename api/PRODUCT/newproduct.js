@@ -9,9 +9,9 @@ router.post('/register', (req, res) => {
         let newProduct = new product({
             name: req.body.pname,
             images: req.body.ImgeUrls,
-            // inStock: req.body.inStock,
-            // des: req.body.des,
-            // cost: req.body.cost,
+            inStock: req.body.inStock,
+            des: req.body.des,
+            cost: req.body.cost,
             // category: req.body.category
         })
         // if(req.files){

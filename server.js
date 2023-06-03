@@ -27,11 +27,13 @@ const auth = require("./api/USER/auth");
 //for newproducts
 const product = require('./api/PRODUCT/newproduct');
 const upload  = require('./configs/upload');
+const getProducts = require('./api/admin/fetchAllData');
 
 
 app.use('/product', product);
 app.use('/user', UserRouter);
 app.use('/auth', auth);
+app.use('/admin', getProducts);
 app.use('/', (req, res)=>{
     res.sendFile(path.join(__dirname+"/views/homepage.html"));
 })
